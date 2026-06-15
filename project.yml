@@ -28,6 +28,7 @@ targets:
     dependencies: []
     settings:
       base:
+        GENERATE_INFOPLIST_FILE: true
         PRODUCT_BUNDLE_IDENTIFIER: com.xyzw.game
         INFOPLIST_KEY_CFBundleDisplayName: XYZW游戏管理
         INFOPLIST_KEY_CFBundleShortVersionString: "1.0"
