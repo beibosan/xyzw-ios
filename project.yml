@@ -16,20 +16,13 @@ settings:
       NSAllowsLocalNetworking: true
       NSAllowsArbitraryLoads: false
 
-packages:
-  GCDWebServer:
-    url: https://github.com/swisspol/GCDWebServer
-    majorVersion: 3.0
-
 targets:
   XYZW:
     type: application
     platform: iOS
     sources:
       - path: Sources
-    dependencies:
-      - package: GCDWebServer
-        product: GCDWebServer
+    dependencies: []
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.xyzw.game

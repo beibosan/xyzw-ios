@@ -13,6 +13,8 @@ build/
 
 # CocoaPods
 Pods/
+Podfile.lock
 
 # XcodeGen 生成的 xcodeproj（每次CI重新生成）
 XYZW.xcodeproj/
+XYZW.xcworkspace/

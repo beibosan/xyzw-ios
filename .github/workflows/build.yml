@@ -23,10 +23,13 @@ jobs:
       - name: Generate Xcode Project
         run: xcodegen generate
 
+      - name: Install CocoaPods
+        run: pod install
+
       - name: Build Archive
         run: |
           xcodebuild archive \
-            -project XYZW.xcodeproj \
+            -workspace XYZW.xcworkspace \
             -scheme XYZW \
             -configuration Release \
             -archivePath build/XYZW.xcarchive \
