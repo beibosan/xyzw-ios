@@ -120,7 +120,7 @@ final class LocalProxyServer {
         server.addHandler(
             match: { (method, _, _, path, _) -> GCDWebServerRequest? in
                 guard method == "OPTIONS" else { return nil }
-                guard proxies.contains(where: { path.hasPrefix($0.prefix) }) else { return nil }
+                guard self.proxies.contains(where: { path.hasPrefix($0.prefix) }) else { return nil }
                 return GCDWebServerRequest(method: method, url: URL(string: "http://localhost")!, headers: [:], path: path, query: nil)
             },
             processBlock: { _ in
@@ -181,10 +181,7 @@ final class LocalProxyServer {
             print("[XYZW] ← \(httpResponse.statusCode) (\(data?.count ?? 0) bytes)")
             
             let contentType = httpResponse.allHeaderFields["Content-Type"] as? String ?? "application/octet-stream"
-            guard let serverResponse = GCDWebServerDataResponse(data: data ?? Data(), contentType: contentType) else {
-                completion(self.errorResponse("Failed to create response"))
-                return
-            }
+            let serverResponse = GCDWebServerDataResponse(data: data ?? Data(), contentType: contentType)
             
             serverResponse.statusCode = httpResponse.statusCode
             
