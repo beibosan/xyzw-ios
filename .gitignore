@@ -1,0 +1,18 @@
+# XYZW iOS
+
+# Xcode
+*.xcworkspace
+*.xcuserdata
+*.xcuserstate
+DerivedData/
+build/
+*.ipa
+
+# macOS
+.DS_Store
+
+# CocoaPods
+Pods/
+
+# XcodeGen 生成的 xcodeproj（每次CI重新生成）
+XYZW.xcodeproj/

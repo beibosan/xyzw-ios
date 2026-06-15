@@ -1,0 +1,50 @@
+name: XYZW
+options:
+  bundleIdPrefix: com.xyzw
+  deploymentTarget:
+    iOS: "15.0"
+  xcodeVersion: "15.0"
+
+settings:
+  base:
+    INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
+    INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents: YES
+    INFOPLIST_KEY_UILaunchScreen_Generation: YES
+    INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: "UIInterfaceOrientationPortrait"
+    INFOPLIST_KEY_UIStatusBarHidden: false
+    INFOPLIST_KEY_NSAppTransportSecurity:
+      NSAllowsLocalNetworking: true
+      NSAllowsArbitraryLoads: false
+
+packages:
+  GCDWebServer:
+    url: https://github.com/swisspol/GCDWebServer
+    majorVersion: 3.0
+
+targets:
+  XYZW:
+    type: application
+    platform: iOS
+    sources:
+      - path: Sources
+    dependencies:
+      - package: GCDWebServer
+        product: GCDWebServer
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.xyzw.game
+        INFOPLIST_KEY_CFBundleDisplayName: XYZW游戏管理
+        INFOPLIST_KEY_CFBundleShortVersionString: "1.0"
+        INFOPLIST_KEY_CFBundleVersion: "1"
+    preBuildScripts:
+      - name: "Copy dist"
+        script: |
+          # 如果 dist 目录存在，复制到 app bundle
+          DIST_SRC="${SRCROOT}/dist"
+          if [ -d "$DIST_SRC" ]; then
+            echo "Copying dist folder..."
+            cp -R "$DIST_SRC" "${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/"
+          else
+            echo "⚠️ dist 目录不存在于: $DIST_SRC"
+          fi
+        basedOnDependencyAnalysis: false

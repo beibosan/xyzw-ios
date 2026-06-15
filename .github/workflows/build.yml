@@ -1,0 +1,56 @@
+name: Build iOS IPA
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:  # 允许手动触发
+
+jobs:
+  build:
+    runs-on: macos-15
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode.app
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Generate Xcode Project
+        run: xcodegen generate
+
+      - name: Resolve SPM Dependencies
+        run: |
+          xcodebuild -resolvePackageDependencies \
+            -project XYZW.xcodeproj \
+            -scheme XYZW
+
+      - name: Build Archive
+        run: |
+          xcodebuild archive \
+            -project XYZW.xcodeproj \
+            -scheme XYZW \
+            -configuration Release \
+            -archivePath build/XYZW.xcarchive \
+            -destination "generic/platform=iOS" \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" 
+
+      - name: Export IPA
+        run: |
+          mkdir -p Payload
+          cp -R build/XYZW.xcarchive/Products/Applications/XYZW.app Payload/
+          zip -r XYZW.ipa Payload
+          rm -rf Payload
+
+      - name: Upload IPA
+        uses: actions/upload-artifact@v4
+        with:
+          name: XYZW-iOS
+          path: XYZW.ipa
+          retention-days: 30
