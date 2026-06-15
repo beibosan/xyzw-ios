@@ -2,13 +2,6 @@
 //  LocalProxyServer.swift
 //  XYZW Game Manager - iOS 本地代理服务器
 //
-//  使用方法：
-//  1. 将本文件拖入 Xcode 项目
-//  2. 通过 SPM 添加 GCDWebServer: https://github.com/swisspol/GCDWebServer
-//  3. 把 dist 文件夹拖入 Xcode (Create folder references, 蓝色文件夹)
-//  4. 在 AppDelegate/SceneDelegate 中调用 LocalProxyServer.shared.start()
-//
-//  然后 WKWebView 加载 http://localhost:8080/index.html 即可
 
 import Foundation
 import GCDWebServer
@@ -36,13 +29,11 @@ final class LocalProxyServer {
     // MARK: - 静态文件服务（托管 dist 目录）
     
     private func setupStaticFiles() {
-        // 假设 dist 文件夹以 folder reference 方式添加到 bundle
         guard let distPath = Bundle.main.path(forResource: "dist", ofType: nil) else {
             print("[XYZW] ⚠️ 未找到 dist 目录，请将 dist 文件夹拖入 Xcode (Create folder references)")
             return
         }
         
-        // 添加静态文件处理器（所有非 /api/* 的请求走这里）
         server.addGETHandler(forBasePath: "/", 
                              directoryPath: distPath, 
                              indexFilename: "index.html", 
@@ -61,7 +52,6 @@ final class LocalProxyServer {
     }
     
     private let proxies: [ProxyConfig] = [
-        // ⚠️ 长前缀放前面，先匹配
         ProxyConfig(
             prefix: "/api/weixin-long",
             target: "https://long.open.weixin.qq.com",
@@ -99,9 +89,6 @@ final class LocalProxyServer {
     
     private func setupProxies() {
         for proxy in proxies {
-            // 匹配 /api/xxx/* 的所有请求
-            let pattern = "^\(NSRegularExpression.escapedPattern(for: proxy.prefix))/.*$"
-            
             // GET 请求
             server.addHandler(
                 match: { (method, url, headers, path, query) -> GCDWebServerRequest? in
@@ -119,7 +106,7 @@ final class LocalProxyServer {
                 match: { (method, url, headers, path, query) -> GCDWebServerRequest? in
                     guard method == "POST" else { return nil }
                     guard path.hasPrefix(proxy.prefix) else { return nil }
-                    return GCDWebServerDataRequest(method: method, url: url, headers: path, path: path, query: query)
+                    return GCDWebServerDataRequest(method: method, url: url, headers: headers, path: path, query: query)
                 },
                 asyncProcessBlock: { [weak self] request, completion in
                     self?.handleProxy(request: request, proxy: proxy, completion: completion)
@@ -134,7 +121,7 @@ final class LocalProxyServer {
             match: { (method, _, _, path, _) -> GCDWebServerRequest? in
                 guard method == "OPTIONS" else { return nil }
                 guard proxies.contains(where: { path.hasPrefix($0.prefix) }) else { return nil }
-                return GCDWebServerRequest(method: method, url: URL(string: "http://localhost")!, headers: nil, path: path, query: nil)
+                return GCDWebServerRequest(method: method, url: URL(string: "http://localhost")!, headers: [:], path: path, query: nil)
             },
             processBlock: { _ in
                 let response = GCDWebServerResponse()
@@ -154,7 +141,6 @@ final class LocalProxyServer {
         proxy: ProxyConfig,
         completion: @escaping (GCDWebServerResponse?) -> Void
     ) {
-        // 构建目标 URL
         let targetPath = request.path.replacingOccurrences(of: proxy.prefix, with: "")
         var targetURLString = proxy.target + (targetPath.isEmpty ? "/" : targetPath)
         if let query = request.query, !query.isEmpty {
@@ -170,12 +156,10 @@ final class LocalProxyServer {
         var urlRequest = URLRequest(url: targetURL)
         urlRequest.httpMethod = request.method
         
-        // 设置代理需要的请求头
         for (key, value) in proxy.headers {
             urlRequest.setValue(value, forHTTPHeaderField: key)
         }
         
-        // 传递原请求的 body
         if let dataRequest = request as? GCDWebServerDataRequest {
             urlRequest.httpBody = dataRequest.data
         }
@@ -196,25 +180,18 @@ final class LocalProxyServer {
             
             print("[XYZW] ← \(httpResponse.statusCode) (\(data?.count ?? 0) bytes)")
             
-            let serverResponse: GCDWebServerDataResponse
-            
-            if let data = data {
-                serverResponse = GCDWebServerDataResponse(data: data, contentType: "application/octet-stream")
-                serverResponse.statusCode = httpResponse.statusCode
-            } else {
-                serverResponse = GCDWebServerDataResponse()
-                serverResponse.statusCode = httpResponse.statusCode
+            let contentType = httpResponse.allHeaderFields["Content-Type"] as? String ?? "application/octet-stream"
+            guard let serverResponse = GCDWebServerDataResponse(data: data ?? Data(), contentType: contentType) else {
+                completion(self.errorResponse("Failed to create response"))
+                return
             }
+            
+            serverResponse.statusCode = httpResponse.statusCode
             
             // 添加 CORS 头
             serverResponse.setValue("*", forAdditionalHeader: "Access-Control-Allow-Origin")
             serverResponse.setValue("GET, POST, OPTIONS", forAdditionalHeader: "Access-Control-Allow-Methods")
             serverResponse.setValue("Content-Type, Authorization, X-Requested-With", forAdditionalHeader: "Access-Control-Allow-Headers")
-            
-            // 透传 Content-Type
-            if let contentType = httpResponse.allHeaderFields["Content-Type"] as? String {
-                serverResponse.contentType = contentType
-            }
             
             completion(serverResponse)
         }
@@ -222,12 +199,14 @@ final class LocalProxyServer {
     }
     
     private func errorResponse(_ message: String) -> GCDWebServerResponse {
-        let json = #"{"error":"\#(message)"}"#
-        let response = GCDWebServerDataResponse(
-            jsonObject: ["error": message]
-        ) ?? GCDWebServerDataResponse(text: json)
-        response.statusCode = 500
-        response.setValue("*", forAdditionalHeader: "Access-Control-Allow-Origin")
-        return response
+        if let response = GCDWebServerDataResponse(jsonObject: ["error": message]) {
+            response.statusCode = 500
+            response.setValue("*", forAdditionalHeader: "Access-Control-Allow-Origin")
+            return response
+        }
+        let fallback = GCDWebServerDataResponse(text: "{\"error\":\"\(message)\"}")
+        fallback?.statusCode = 500
+        fallback?.setValue("*", forAdditionalHeader: "Access-Control-Allow-Origin")
+        return fallback ?? GCDWebServerResponse(statusCode: 500)
     }
 }
