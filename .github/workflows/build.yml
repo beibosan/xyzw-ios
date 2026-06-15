@@ -23,12 +23,6 @@ jobs:
       - name: Generate Xcode Project
         run: xcodegen generate
 
-      - name: Resolve SPM Dependencies
-        run: |
-          xcodebuild -resolvePackageDependencies \
-            -project XYZW.xcodeproj \
-            -scheme XYZW
-
       - name: Build Archive
         run: |
           xcodebuild archive \

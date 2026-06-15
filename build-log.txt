@@ -1,0 +1,168 @@
+﻿ï»¿2026-06-15T01:01:19.3418290Z Current runner version: '2.335.1'
+2026-06-15T01:01:19.3436710Z ##[group]Runner Image Provisioner
+2026-06-15T01:01:19.3437360Z Hosted Compute Agent
+2026-06-15T01:01:19.3437810Z Version: 20260520.533
+2026-06-15T01:01:19.3438280Z Commit: 189110e25284a9812c124fd27b339e2fb4f2f9db
+2026-06-15T01:01:19.3438830Z Build Date: 2026-05-20T17:44:04Z
+2026-06-15T01:01:19.3439340Z Worker ID: {d9180f90-743a-4fa0-a4ab-2764971858f7}
+2026-06-15T01:01:19.3439880Z Azure Region: westus
+2026-06-15T01:01:19.3440320Z ##[endgroup]
+2026-06-15T01:01:19.3441280Z ##[group]Operating System
+2026-06-15T01:01:19.3441740Z macOS
+2026-06-15T01:01:19.3442150Z 15.7.7
+2026-06-15T01:01:19.3442550Z 24G720
+2026-06-15T01:01:19.3442960Z ##[endgroup]
+2026-06-15T01:01:19.3443380Z ##[group]Runner Image
+2026-06-15T01:01:19.3443830Z Image: macos-15-arm64
+2026-06-15T01:01:19.3444280Z Version: 20260527.0100.1
+2026-06-15T01:01:19.3445210Z Included Software: https://github.com/actions/runner-images/blob/macos-15-arm64/20260527.0100/images/macos/macos-15-arm64-Readme.md
+2026-06-15T01:01:19.3446330Z Image Release: https://github.com/actions/runner-images/releases/tag/macos-15-arm64%2F20260527.0100
+2026-06-15T01:01:19.3447080Z ##[endgroup]
+2026-06-15T01:01:19.3448030Z ##[group]GITHUB_TOKEN Permissions
+2026-06-15T01:01:19.3449420Z Contents: read
+2026-06-15T01:01:19.3449880Z Metadata: read
+2026-06-15T01:01:19.3450340Z Packages: read
+2026-06-15T01:01:19.3450790Z ##[endgroup]
+2026-06-15T01:01:19.3452400Z Secret source: Actions
+2026-06-15T01:01:19.3452930Z Prepare workflow directory
+2026-06-15T01:01:19.3714260Z Prepare all required actions
+2026-06-15T01:01:19.3768670Z Getting action download info
+2026-06-15T01:01:19.9018470Z Download action repository 'actions/checkout@v4' (SHA:34e114876b0b11c390a56381ad16ebd13914f8d5)
+2026-06-15T01:01:20.3000060Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-06-15T01:01:20.5888810Z Complete job name: build
+2026-06-15T01:01:20.6674010Z ##[group]Run actions/checkout@v4
+2026-06-15T01:01:20.6674810Z with:
+2026-06-15T01:01:20.6675280Z   repository: beibosan/xyzw-ios
+2026-06-15T01:01:20.6678720Z   token: ***
+2026-06-15T01:01:20.6679180Z   ssh-strict: true
+2026-06-15T01:01:20.6679640Z   ssh-user: git
+2026-06-15T01:01:20.6680110Z   persist-credentials: true
+2026-06-15T01:01:20.6680600Z   clean: true
+2026-06-15T01:01:20.6681070Z   sparse-checkout-cone-mode: true
+2026-06-15T01:01:20.6681590Z   fetch-depth: 1
+2026-06-15T01:01:20.6682050Z   fetch-tags: false
+2026-06-15T01:01:20.6682510Z   show-progress: true
+2026-06-15T01:01:20.6682990Z   lfs: false
+2026-06-15T01:01:20.6683450Z   submodules: false
+2026-06-15T01:01:20.6683910Z   set-safe-directory: true
+2026-06-15T01:01:20.6684600Z ##[endgroup]
+2026-06-15T01:01:21.0270460Z Syncing repository: beibosan/xyzw-ios
+2026-06-15T01:01:21.0272410Z ##[group]Getting Git version info
+2026-06-15T01:01:21.0273270Z Working directory is '/Users/runner/work/xyzw-ios/xyzw-ios'
+2026-06-15T01:01:21.0274650Z [command]/opt/homebrew/bin/git version
+2026-06-15T01:01:21.0647290Z git version 2.54.0
+2026-06-15T01:01:21.0918770Z ##[endgroup]
+2026-06-15T01:01:21.1049400Z Copying '/Users/runner/.gitconfig' to '/Users/runner/work/_temp/5ba4c546-9748-4067-a922-9bb44bf7e30a/.gitconfig'
+2026-06-15T01:01:21.1121980Z Temporarily overriding HOME='/Users/runner/work/_temp/5ba4c546-9748-4067-a922-9bb44bf7e30a' before making global git config changes
+2026-06-15T01:01:21.1133540Z Adding repository directory to the temporary git global config as a safe directory
+2026-06-15T01:01:21.1137520Z [command]/opt/homebrew/bin/git config --global --add safe.directory /Users/runner/work/xyzw-ios/xyzw-ios
+2026-06-15T01:01:21.1801100Z Deleting the contents of '/Users/runner/work/xyzw-ios/xyzw-ios'
+2026-06-15T01:01:21.1805660Z ##[group]Initializing the repository
+2026-06-15T01:01:21.1809030Z [command]/opt/homebrew/bin/git init /Users/runner/work/xyzw-ios/xyzw-ios
+2026-06-15T01:01:21.2175900Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-06-15T01:01:21.2187450Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-06-15T01:01:21.2194200Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-06-15T01:01:21.2195700Z hint: call:
+2026-06-15T01:01:21.2196700Z hint:
+2026-06-15T01:01:21.2201500Z hint: 	git config --global init.defaultBranch <name>
+2026-06-15T01:01:21.2202760Z hint:
+2026-06-15T01:01:21.2203900Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-06-15T01:01:21.2205760Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-06-15T01:01:21.2207230Z hint:
+2026-06-15T01:01:21.2208080Z hint: 	git branch -m <name>
+2026-06-15T01:01:21.2208980Z hint:
+2026-06-15T01:01:21.2210180Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-06-15T01:01:21.2212170Z Initialized empty Git repository in /Users/runner/work/xyzw-ios/xyzw-ios/.git/
+2026-06-15T01:01:21.2215710Z [command]/opt/homebrew/bin/git remote add origin https://github.com/beibosan/xyzw-ios
+2026-06-15T01:01:21.2281540Z ##[endgroup]
+2026-06-15T01:01:21.2302100Z ##[group]Disabling automatic garbage collection
+2026-06-15T01:01:21.2303520Z [command]/opt/homebrew/bin/git config --local gc.auto 0
+2026-06-15T01:01:21.2379700Z ##[endgroup]
+2026-06-15T01:01:21.2383590Z ##[group]Setting up auth
+2026-06-15T01:01:21.2386680Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-06-15T01:01:21.2465600Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-06-15T01:01:21.3969080Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-06-15T01:01:21.4215710Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-06-15T01:01:21.6525360Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-06-15T01:01:21.6530090Z [command]/opt/homebrew/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-06-15T01:01:21.7288610Z [command]/opt/homebrew/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-06-15T01:01:21.7317680Z ##[endgroup]
+2026-06-15T01:01:21.7319060Z ##[group]Fetching the repository
+2026-06-15T01:01:21.7321780Z [command]/opt/homebrew/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +8ccc796392e37a24533fbaeb217c769bcb1d65f6:refs/remotes/origin/main
+2026-06-15T01:01:22.4941470Z From https://github.com/beibosan/xyzw-ios
+2026-06-15T01:01:22.4943010Z  * [new ref]         8ccc796392e37a24533fbaeb217c769bcb1d65f6 -> origin/main
+2026-06-15T01:01:22.5165480Z ##[endgroup]
+2026-06-15T01:01:22.5167190Z ##[group]Determining the checkout info
+2026-06-15T01:01:22.5168800Z ##[endgroup]
+2026-06-15T01:01:22.5169890Z [command]/opt/homebrew/bin/git sparse-checkout disable
+2026-06-15T01:01:22.5630490Z [command]/opt/homebrew/bin/git config --local --unset-all extensions.worktreeConfig
+2026-06-15T01:01:22.5729860Z ##[group]Checking out the ref
+2026-06-15T01:01:22.5735760Z [command]/opt/homebrew/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-06-15T01:01:22.6484640Z Switched to a new branch 'main'
+2026-06-15T01:01:22.6490360Z branch 'main' set up to track 'origin/main'.
+2026-06-15T01:01:22.6495080Z ##[endgroup]
+2026-06-15T01:01:22.6626870Z [command]/opt/homebrew/bin/git log -1 --format=%H
+2026-06-15T01:01:22.6724030Z 8ccc796392e37a24533fbaeb217c769bcb1d65f6
+2026-06-15T01:01:22.6952560Z ##[group]Run sudo xcode-select -s /Applications/Xcode.app
+2026-06-15T01:01:22.6953980Z [36;1msudo xcode-select -s /Applications/Xcode.app[0m
+2026-06-15T01:01:22.7004230Z shell: /bin/bash -e {0}
+2026-06-15T01:01:22.7005790Z ##[endgroup]
+2026-06-15T01:01:22.8061750Z ##[group]Run brew install xcodegen
+2026-06-15T01:01:22.8062870Z [36;1mbrew install xcodegen[0m
+2026-06-15T01:01:22.8200360Z shell: /bin/bash -e {0}
+2026-06-15T01:01:22.8201250Z ##[endgroup]
+2026-06-15T01:01:26.4336190Z âï¸ JSON API formula_tap_migrations.jws.json
+2026-06-15T01:01:26.4337050Z âï¸ JSON API cask_tap_migrations.jws.json
+2026-06-15T01:01:28.4260750Z Inspect the formula dependency plan before installing with `brew install --ask`.
+2026-06-15T01:01:28.4262130Z Enable ask mode by setting `HOMEBREW_ASK=1`.
+2026-06-15T01:01:28.4262960Z Hide these hints with `HOMEBREW_NO_ENV_HINTS=1` (see `man brew`).
+2026-06-15T01:01:28.4265390Z [32m==>[0m [1mFetching downloads for: [32mxcodegen[39m[0m
+2026-06-15T01:01:28.7683510Z âï¸ Bottle Manifest xcodegen (2.45.4)
+2026-06-15T01:01:29.3880060Z âï¸ Bottle xcodegen (2.45.4)
+2026-06-15T01:01:29.4468950Z [34m==>[0m [1mPouring xcodegen--2.45.4.arm64_sequoia.bottle.tar.gz[0m
+2026-06-15T01:01:29.6146510Z ðº  /opt/homebrew/Cellar/xcodegen/2.45.4: 38 files, 7.4MB
+2026-06-15T01:01:29.6573570Z ##[group]Run xcodegen generate
+2026-06-15T01:01:29.6573860Z [36;1mxcodegen generate[0m
+2026-06-15T01:01:29.6609510Z shell: /bin/bash -e {0}
+2026-06-15T01:01:29.6609930Z ##[endgroup]
+2026-06-15T01:01:29.7423650Z âï¸  Generating plists...
+2026-06-15T01:01:29.7427770Z âï¸  Generating project...
+2026-06-15T01:01:29.7509880Z âï¸  Writing project...
+2026-06-15T01:01:29.7576230Z Created project at /Users/runner/work/xyzw-ios/xyzw-ios/XYZW.xcodeproj
+2026-06-15T01:01:29.7618530Z ##[group]Run xcodebuild -resolvePackageDependencies \
+2026-06-15T01:01:29.7619000Z [36;1mxcodebuild -resolvePackageDependencies \[0m
+2026-06-15T01:01:29.7619320Z [36;1m  -project XYZW.xcodeproj \[0m
+2026-06-15T01:01:29.7619730Z [36;1m  -scheme XYZW[0m
+2026-06-15T01:01:29.7654360Z shell: /bin/bash -e {0}
+2026-06-15T01:01:29.7654740Z ##[endgroup]
+2026-06-15T01:01:30.9211960Z Command line invocation:
+2026-06-15T01:01:30.9212840Z     /Applications/Xcode_16.4.app/Contents/Developer/usr/bin/xcodebuild -resolvePackageDependencies -project XYZW.xcodeproj -scheme XYZW
+2026-06-15T01:01:30.9213400Z 
+2026-06-15T01:01:32.6603190Z Resolve Package Graph
+2026-06-15T01:01:32.7242280Z 
+2026-06-15T01:01:32.7271830Z Fetching from https://github.com/swisspol/GCDWebServer
+2026-06-15T01:01:33.9283900Z 
+2026-06-15T01:01:34.7793680Z 2026-06-15 01:01:34.778 xcodebuild[1406:6753] Writing error result bundle to /var/folders/8d/778wjbv96mq1760tv6gk374m0000gn/T/ResultBundle_2026-15-06_01-01-0034.xcresult
+2026-06-15T01:01:35.0540810Z xcodebuild: error: Could not resolve package dependencies:
+2026-06-15T01:01:35.0543870Z   the package manifest at '/Package.swift' cannot be accessed (/Package.swift doesn't exist in file system)
+2026-06-15T01:01:35.0556640Z 
+2026-06-15T01:01:35.0664150Z the package manifest at '/Package.swift' cannot be accessed (/Package.swift doesn't exist in file system)
+2026-06-15T01:01:35.0685910Z ##[error]Process completed with exit code 74.
+2026-06-15T01:01:35.1181240Z Post job cleanup.
+2026-06-15T01:01:35.6445290Z [command]/opt/homebrew/bin/git version
+2026-06-15T01:01:35.6603930Z git version 2.54.0
+2026-06-15T01:01:35.6654790Z Copying '/Users/runner/.gitconfig' to '/Users/runner/work/_temp/2548e19c-5286-4839-8e03-aa633b62e080/.gitconfig'
+2026-06-15T01:01:35.6667920Z Temporarily overriding HOME='/Users/runner/work/_temp/2548e19c-5286-4839-8e03-aa633b62e080' before making global git config changes
+2026-06-15T01:01:35.6668890Z Adding repository directory to the temporary git global config as a safe directory
+2026-06-15T01:01:35.6681820Z [command]/opt/homebrew/bin/git config --global --add safe.directory /Users/runner/work/xyzw-ios/xyzw-ios
+2026-06-15T01:01:35.6816370Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-06-15T01:01:35.6948550Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-06-15T01:01:35.9037920Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-06-15T01:01:35.9108020Z http.https://github.com/.extraheader
+2026-06-15T01:01:35.9174220Z [command]/opt/homebrew/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-06-15T01:01:35.9362450Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-06-15T01:01:36.0969730Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-06-15T01:01:36.1080240Z [command]/opt/homebrew/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-06-15T01:01:36.3125500Z Cleaning up orphan processes
+2026-06-15T01:01:36.5533100Z ##[warning]Node.js 20 actions are deprecated. The following actions are running on Node.js 20 and may not work as expected: actions/checkout@v4. Actions will be forced to run with Node.js 24 by default starting June 16th, 2026. Node.js 20 will be removed from the runner on September 16th, 2026. Please check if updated versions of these actions are available that support Node.js 24. To opt into Node.js 24 now, set the FORCE_JAVASCRIPT_ACTIONS_TO_NODE24=true environment variable on the runner or in your workflow file. Once Node.js 24 becomes the default, you can temporarily opt out by setting ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+
