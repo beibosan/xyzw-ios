@@ -22,6 +22,9 @@ targets:
     platform: iOS
     sources:
       - path: Sources
+      - path: dist
+        type: folder
+        buildPhase: resources
     dependencies: []
     settings:
       base:
@@ -29,15 +32,3 @@ targets:
         INFOPLIST_KEY_CFBundleDisplayName: XYZW游戏管理
         INFOPLIST_KEY_CFBundleShortVersionString: "1.0"
         INFOPLIST_KEY_CFBundleVersion: "1"
-    preBuildScripts:
-      - name: "Copy dist"
-        script: |
-          # 如果 dist 目录存在，复制到 app bundle
-          DIST_SRC="${SRCROOT}/dist"
-          if [ -d "$DIST_SRC" ]; then
-            echo "Copying dist folder..."
-            cp -R "$DIST_SRC" "${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/"
-          else
-            echo "⚠️ dist 目录不存在于: $DIST_SRC"
-          fi
-        basedOnDependencyAnalysis: false
